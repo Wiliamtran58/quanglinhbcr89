@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký xem livestream</title>
+</head>
+<body>
+    <h2>Nhập thông tin để tiếp tục</h2>
+    <form id="signupForm">
+        <label for="name">Họ và tên:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+        <label for="phone">Số điện thoại:</label>
+        <input type="tel" id="phone" name="phone" required>
+        <br>
+        <button type="submit">Tiếp theo</button>
+    </form>
+    
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            let name = document.getElementById('name').value;
+            let phone = document.getElementById('phone').value;
+            
+            fetch('https://script.google.com/macros/s/AKfycbwkZQ8so-wIwHr9x2w7aiIifmaxL_JuGnLo9YzIJ4cFnlyegOj-DDe2taqNyQ2jK6-wsg/exec', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, phone })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    window.location.href = 'https://84win.net/vit/home/index/in-play?isReg=1';
+                } else {
+                    alert('Lỗi! Vui lòng thử lại.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
